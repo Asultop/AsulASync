@@ -3,8 +3,6 @@
 
 #include <QObject>
 #include <QRunnable>
-#include <QMutex>
-#include <QWaitCondition>
 #include <functional>
 #include <atomic>
 
