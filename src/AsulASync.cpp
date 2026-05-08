@@ -6,6 +6,7 @@ AsulASyncRunnable::AsulASyncRunnable(int steps, TaskFunction taskFunc, QObject *
     , m_steps(steps)
     , m_currentStep(0)
     , m_taskFunc(std::move(taskFunc))
+    , m_cancelled(false)
 {
     setAutoDelete(false);
 }
@@ -18,6 +19,11 @@ AsulASyncRunnable::AsulASyncRunnable(int steps, QObject *parent)
 AsulASyncRunnable::AsulASyncRunnable()
     : AsulASyncRunnable(0, nullptr, nullptr)
 {
+}
+
+AsulASyncRunnable::~AsulASyncRunnable()
+{
+    cancel();
 }
 
 
@@ -53,4 +59,12 @@ void AsulASyncRunnable::letsStepNext() const
 void AsulASyncRunnable::start() const
 {
     QThreadPool::globalInstance()->start(const_cast<AsulASyncRunnable*>(this));
+}
+void AsulASyncRunnable::cancel()
+{
+    m_cancelled.store(true);
+}
+bool AsulASyncRunnable::isCancelled() const
+{
+    return m_cancelled.load();
 }
