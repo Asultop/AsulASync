@@ -11,7 +11,7 @@ class TestBasicFunctionality : public QObject
 private slots:
     void testStepProgress()
     {
-        AsulASyncRunnable task(3);
+        AsulASyncRunnable task(3, nullptr);
         QSignalSpy spy(&task, &AsulASyncRunnable::stepUpdated);
 
         task.letsStepNext();

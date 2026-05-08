@@ -1,13 +1,25 @@
 #include "AsulASync.h"
 #include <QThreadPool>
 
-AsulASyncRunnable::AsulASyncRunnable(int steps, TaskFunction taskFunc)
-    : m_steps(steps)
+AsulASyncRunnable::AsulASyncRunnable(int steps, TaskFunction taskFunc, QObject *parent)
+    : QObject(parent)
+    , m_steps(steps)
     , m_currentStep(0)
     , m_taskFunc(std::move(taskFunc))
 {
     setAutoDelete(false);
 }
+
+AsulASyncRunnable::AsulASyncRunnable(int steps, QObject *parent)
+    : AsulASyncRunnable(steps, nullptr, parent)
+{
+}
+
+AsulASyncRunnable::AsulASyncRunnable()
+    : AsulASyncRunnable(0, nullptr, nullptr)
+{
+}
+
 
 void AsulASyncRunnable::run()
 {

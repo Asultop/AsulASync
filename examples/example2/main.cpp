@@ -7,7 +7,7 @@ class DownloadTask : public AsulASyncRunnable
 {
 public:
     explicit DownloadTask(int fileSize)
-        : AsulASyncRunnable(fileSize)
+        : AsulASyncRunnable(fileSize, nullptr)
     {
     }
 

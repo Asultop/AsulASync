@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
                 QThread::msleep(30);
                 self->letsStepNext();
             }
-        });
+        }, &window);
 
         QObject::connect(task, &AsulASyncRunnable::stepUpdated,
                          progressBar, [progressBar](int current, int total) {

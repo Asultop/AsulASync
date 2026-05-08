@@ -18,7 +18,10 @@ class ASULASYNC_EXPORT AsulASyncRunnable : public QObject, public QRunnable
 public:
     using TaskFunction = std::function<void(AsulASyncRunnable*)>;
 
-    explicit AsulASyncRunnable(int steps, TaskFunction taskFunc = nullptr);
+    explicit AsulASyncRunnable(int steps, TaskFunction taskFunc = nullptr, QObject *parent = nullptr);
+    explicit AsulASyncRunnable(int steps, QObject *parent = nullptr);
+    explicit AsulASyncRunnable();
+    
     ~AsulASyncRunnable() override = default;
 
     void run() override;
